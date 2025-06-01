@@ -2,7 +2,7 @@
 
 **Auth Channel** is a modern, open-source Blazor chat/message board application designed for secure, enterprise-ready collaboration. It leverages Azure services for authentication, real-time messaging, and file sharing.
 
-✨ ## Features
+## ✨  Features
 
  **Single-Tenant Authorization**  
   Uses [MSAL](https://github.com/AzureAD/microsoft-authentication-library-for-dotnet) for secure, single-tenant authentication with Azure Active Directory.
@@ -25,7 +25,7 @@
 ✔️ **Session Management**  
   User sessions and message history are stored in Azure Table Storage for reliability and scalability.
 
-🛞 ## Architecture 🛞
+## 🛞  Architecture 🛞
 
 -📃  **Frontend:** Blazor (.NET 9), Signalr Client
 -📃  **Backend:** ASP.NET Core, SignalR Management & Hub, Azure SDKs
@@ -33,15 +33,15 @@
 -📃  **Storage:** Azure Table Storage (sessions/messages), Azure Blob Storage (file uploads) - ** In Memory Storage is available for debugging **
 -📃  **Real-Time:** Azure SignalR Service
 
-🔡 ## Getting Started
+## 🔡 Getting Started
 
-➿### Prerequisites
+### ➿ Prerequisites
 
 - [.NET 9 SDK](https://dotnet.microsoft.com/download)
 - Azure Subscription (for SignalR, Storage, and AD)
 - [Node.js](https://nodejs.org/) (for frontend tooling, if needed)
 
-👆 ### Configuration
+### 👆  Configuration
 
 1. **Azure AD App Registration**  
    Register a single-tenant app in Azure AD.  
