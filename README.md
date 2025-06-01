@@ -1,6 +1,6 @@
 # Authchannel Message Board 🗣️
 
-**Auth Channel** is a modern, open-source Blazor chat/message board application designed for secure, enterprise-ready collaboration. It leverages Azure services for authentication, real-time messaging, and file sharing.
+**Auth Channel** is a modern, open-source [Blazor](url:https://docs.blazorbootstrap.com/img/logo.svg) chat/message board application designed for secure, enterprise-ready collaboration. It leverages Azure services for authentication, real-time messaging, and file sharing.
 
 ## ✨  Features
 
