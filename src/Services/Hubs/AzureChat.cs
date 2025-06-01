@@ -184,7 +184,8 @@ namespace AuthChannel.Services.Hubs
                 var isSession = await SafeExecutor.ExecuteAsync(async ()=> await _azureDataTableSessionStorage.GetSessionBySessionId(session!.SessionId), _logger, $"Get Session By SessionId");    
                 var isListedCommander = _commander.ActiveGroups.ToDictionary().Where(w => w.Key.Item2 == receiver).Where(x => x.Value == session?.SessionId).ToDictionary();
             */
-            
+
+            // now using the AzSignalr Management Host Service to validate the "existance of the receiver" 
             if (await _signalRService.MessageHubContext!.ClientManager.UserExistsAsync(receiver))
             {
                 var userSessions = await SafeExecutor.ExecuteAsync(async () => await _azureDataTableSessionStorage.GetLatestSessionsAsync(sender!), _logger, $"Get Sessions");
