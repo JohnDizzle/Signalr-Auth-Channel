@@ -28,7 +28,7 @@
 
 ## 🛞  Architecture 🛞
 
-✔️  **Frontend:** !Blazor  https://docs.blazorbootstrap.com/img/logo.svg (.NET 9), Signalr Client
+✔️  **Frontend:**  ![Blazor]([files/Users/jzhang/Desktop/Isolated.png](https://docs.blazorbootstrap.com/img/logo.svg ) Blazor (.NET 9), Signalr Client
 
 ✔️  **Backend:** ASP.NET Core, SignalR Management & Hub, Azure SDKs
 
