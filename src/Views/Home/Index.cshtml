@@ -1,0 +1,112 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+@{
+
+    var Person = ViewData["GraphApiResult"] as JsonResult;
+    var convert = Person?.Value as User;
+
+
+}
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" initial-scale="1.0" />
+    <title>Message Board</title>
+    <style>
+        .scroll-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 10px;
+            gap: 20px;
+        }
+
+            .scroll-container::-webkit-scrollbar {
+                height: 8px;
+            }
+
+            .scroll-container::-webkit-scrollbar-thumb {
+                background-color: #888;
+                border-radius: 4px;
+            }
+
+                .scroll-container::-webkit-scrollbar-thumb:hover {
+                    background-color: #555;
+                }
+
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .card:hover {
+                transform: scale(1.1);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
+
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @@keyframes scaleUp {
+            from {
+                transform: scale(0.8);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+    </style>
+
+    </head>
+    <body>  
+
+    
+    <h3 class="text-primary fst-italic text-center display-3 fw-bold" style="text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); letter-spacing: 2px;">Auth Channel</h3>  
+    <div class="d-flex flex-column align-items-center justify-content-center rounded-3 shadow-lg text-black-50">  
+       <div class="dotwrapper mt-lg-5 scroll-container">  
+              @for (int i = 6; i >= 1; i--)  
+              {  
+                  var path = string.Format("~/images/uifaces-popular-image-{0}.jpg", i);  
+                  <div class="dot d-flex flex-column align-items-center shadow-lg p-lg-4 position-relative bg-gradient m-3 card"  
+                       style="background-color: lightsteelblue; border-radius: 0;">  
+                      <img src="@Url.Content(path)" class="img-thumbnail rounded-circle d-block mx-auto" width="100" height="100" />  
+                  </div>  
+              }  
+       </div>  
+
+    </div>  
+
+    <div class="nav nav-pills justify-content-center m-lg-5">  
+       <a class="animate-text" style="font-weight:500; font-size: 4rem;" href="@Url.Action("Index", "MessageBoard")">Message Board</a>  
+    </div>  
+    </body>
+</html>
+
+
+@* <div class="features">
+<div class="header">
+<div class="title">
+<h2>One Productivity Hub</h2>
+<div class="row">
+<div class="column"><h3>Calendar events</h3></div>
+<div class="column"><h3>To-do tasks</h3></div>
+<div class="column"><h3>Files</h3></div>
+</div>
+</div>
+</div>
+<div class="row" id="content">
+<div class="column" id="mgt-col"><mgt-agend /></div>
+<div class="column" id="mgt-col"><mgt-todo /></div>
+<div class="column" id="mgt-col"><mgt-file-list /></div>
+</div>
+</div> *@

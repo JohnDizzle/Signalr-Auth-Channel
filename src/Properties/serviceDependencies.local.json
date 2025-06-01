@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "identityapp1": {
+      "connectionInfo": "App registration: FireCore, Tenant: UserCentral (fizzledbydizzlelive.onmicrosoft.com - Microsoft Entra ID)",
+      "secretStore": "LocalSecretsFile",
+      "resourceId": null,
+      "type": "identityapp.secretStore",
+      "connectionId": "AzureAD:ClientSecret"
+    }
+  }
+}

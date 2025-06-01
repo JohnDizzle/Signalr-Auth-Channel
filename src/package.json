@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "name": "asp.net",
+  "private": true,
+  "devDependencies": {
+    "@eslint/js": "^9.27.0",
+    "@microsoft/mgt": "^4.6.0",
+    "@microsoft/mgt-msal2-provider": "4.6.0",
+    "eslint": "^9.27.0",
+    "globals": "^16.1.0",
+    "js-snackbar": "1.1.2"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.6",
+    "leo-profanity": "^1.7.0"
+  }
+}

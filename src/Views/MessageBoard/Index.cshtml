@@ -1,0 +1,331 @@
+﻿@using System.Security.Principal
+@* //https://sl.bing.net/taiiNiKtH2
+ *@
+@{
+    ViewData["Title"] = "Message Board";
+}
+
+@{
+
+
+    string? UserName = string.Empty;
+    var sid = User.Identities.FirstOrDefault() as System.Security.Claims.ClaimsIdentity;
+    UserName = sid is not null ? sid.Name : null;
+
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" initial-scale="1.0" />
+    <title>Message Board</title>
+    <style>
+        :root {
+            --primary-color: mediumpurple;
+            --secondary-color: #6c757d;
+            --text-color: #212529;
+            --border-radius: 5px;
+        }
+
+        .limited-text {
+            border: 1px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+        }
+        /* Basic Styles */
+
+        #collapseMax {
+            transition: transform 0.3s ease-in-out;
+        }
+
+            #collapseMax.hidden {
+                transform: translateX(-100%);
+            }
+
+
+
+        @@keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal.fade .modal-dialog {
+            transform: translateY(-50px);
+            opacity: 0;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
+
+        .modal.show .modal-dialog {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @@keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .animated-list li {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #007bff, #6c757d);
+            border: none;
+        }
+
+            .btn-primary:hover {
+                background: linear-gradient(135deg, #0056b3, #5a6268);
+            }
+
+        .shadow-lg {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        #sendmessage:hover {
+            cursor: pointer;
+        }
+
+        #message:hover {
+            cursor: text;
+        }
+
+        fluent-text-area {
+            caret-color: black; /* Change cursor color */
+        }
+
+
+        /* General Boxing Style */
+        .d-flex.flex-column {
+            border-radius: var(--border-radius); /* Smooth rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1); /* Cool shadow effect */
+            background: linear-gradient(135deg, #ffffff, #f8f9fa); /* Subtle gradient background */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+            width: fit-content;
+            overflow: hidden; /* Ensure content stays inside */
+        }
+
+            /* Hover Animation */
+            .d-flex.flex-column:hover {
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+                background: linear-gradient(135deg, #e3f2fd, #ffffff); /* Change background on hover */
+            }
+
+
+
+        /* Card Header Styling */
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); /* Gradient header */
+            color: white; /* Text color */
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.1); /* Subtle border */
+        }
+
+        /* Card Body Styling */
+        .card-body {
+            padding: 15px;
+            background-color: #ffffff; /* Clean white background */
+            color: var(--text-color);
+        }
+
+        /* List Items Animation */
+        .list-group li {
+            border: 1px solid gba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            padding: 10px;
+            margin-bottom: 5px;
+            margin-left: 5px;
+            margin-right: 5px;
+            background: #f8f9fa;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            /* Hover Effect for List Items */
+            .list-group li:hover {
+                transform: scale(1.01); /* Slightly enlarge on hover */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                background: linear-gradient(135deg, #ffffff, #e3f2fd);
+                padding-right: 4px;
+            }
+
+        /* Button Styling */
+        .btn {
+            border-radius: var(--border-radius);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+            /* Button Hover Animation */
+            .btn:hover {
+                transform: scale(1.1); /* Slightly enlarge on hover */
+                background-color: var(--primary-color);
+                color: white;
+            }
+
+        /* Smooth Animation for All Elements */
+        * {
+            transition: all 0.3s ease;
+        }
+
+    </style>
+    <script type="text/javascript">
+
+        function backToGrid() {
+             document.getElementById("chatView").classList.add("d-none");
+             document.getElementById("collapseMax").classList.remove("d-none");
+         }
+
+    </script>
+</head>
+<body>
+
+    <section class="d-flex flex-row w-100 mx-4 py-2" style="height: calc(90vh); margin-bottom: 2rem; overflow-y: auto">
+        <!-- Rooms Section -->
+        <div class="d-flex flex-column mx-1 align-content-center " id="collapseMax">
+            <div id="roomsGrid" class="card shadow-lg h-100" style="background: linear-gradient(135deg, #FF7bff, #6c757d); color: white;">
+                <div class="card-header shadow-sm rounded-bottom">
+                    <h4 class="font-weight-bold text-center">Rooms</h4>
+                </div>
+                <div class="card-body mx-2 ">
+                    <input id="receiverName" title="Search for rooms or add rooms" placeholder="Search for room (Add Room)" type="text" class="form-control mb-2 shadow" />
+                    <select required class="form-select mb-2 shadow" id="rcNameOptions" title="RoomsList">
+                        <option value="Public" disabled hidden selected>Public</option>
+                    </select>
+                        <!-- Rooms list items -->
+                    <ul id="userlist" class="list-group bg-light d-flex flex-wrap mx-2" style="gap: 10px; padding: 0; margin:0;">
+                        <!-- Rooms list items -->
+                    </ul>
+                    
+                </div>
+                <div class="card-footer" id="userName">
+                </div>
+            </div>
+        </div>
+
+        <div id="chatView" class="d-flex flex-column d-none">
+            
+                <div class="d-flex flex-row flex-shrink-0 justify-content-between p-2 mt-2 mb-2">
+                    <button class="btn btn-sm btn-outline-primary shadow" id="btnCollapseRooms" onclick="backToGrid()" type="button">
+                        <i id="btnCollapseRoomsI" class="fa fa-caret-left"></i>
+                    </button>
+                    <h3 id="sessionLabel" class="text-uppercase text-primary fw-bold m-0 float-end">Public</h3>
+                </div>
+
+                <div class="flex-grow-1" style="flex-grow: 1; overflow-y:auto;">
+                    <ul class="list-group shadow-sm mx-2 mb-1 py-2 flex-column overflow-x-hidden overflow-y-scroll h-100" id="messages" style="flex-grow: 1;">
+                    </ul>
+                </div>
+
+                <!-- Message Input -->
+                <div class="rounded border-top bg-light shadow p-2">
+                    <div class="d-flex">
+                        <fluent-text-area id="message" rows="2" contenteditable="true" class="flex-grow-1 mx-2" placeholder="Type message and press Enter to send..."></fluent-text-area>
+                        <button class="btn btn-outline-success m-2 shadow" id="sendmessage">Send</button>
+
+                    </div>
+                    <div class="d-flex mt-2">
+                        <input name="file" class="fa fa-paperclip shadow" id="uploadFile" type="file" multiple />
+                        <div id="thumbnailContainer"></div>
+                    </div>
+                </div>
+            
+        </div>
+
+        @*  <!-- Chatroom Section -->
+        <div class="d-flex flex-column flex-shrink-0 mx-1" style="overflow-y: hidden;" id="messageColumn">
+            <!-- Top Bar -->
+            <div class="d-flex justify-content-between align-items-center m-2 p-2">
+                <button class="btn btn-sm btn-outline-primary shadow" id="btnCollapseRooms" type="button">
+                    <i id="btnCollapseRoomsI" class="fa fa-caret-left"></i>
+                </button>
+                <h3 id="sessionLabel" class="text-uppercase text-primary fw-bold m-0">Public</h3>
+            </div>
+
+            <!-- Messages List -->
+            <div class="d-flex flex-column" style="flex-grow: 1; overflow-y:;">
+                <ul class="list-group shadow-sm mx-2 mb-1 py-2 flex-column overflow-x-hidden overflow-y-scroll h-100" id="messages" style="flex-grow: 1;">
+                   <!-- Messages will be dynamically added here -->
+                </ul>
+            </div>
+
+            <!-- Message Input -->
+            <div class="rounded border-top bg-light shadow p-2">
+                <div class="d-flex">
+                    <fluent-text-area id="message" rows="2" contenteditable="true" class="flex-grow-1 mx-2" placeholder="Type message and press Enter to send..."></fluent-text-area>
+                    <button class="btn btn-outline-success m-2 shadow" id="sendmessage">Send</button>
+
+                </div>
+                <div class="d-flex mt-2">
+                    <input name="file" class="fa fa-paperclip shadow" id="uploadFile" type="file" multiple />
+                    <div id="thumbnailContainer"></div>
+                </div>
+            </div>
+        </div> *@
+
+        <!-- Members Section -->
+        <div class="d-flex flex-column mx-1" style="background-color: #f8f9fa; overflow-y: auto;" id="membersColumn">
+
+            <div class="d-flex flex-column h-100 shadow-lg" style="border-radius: var(--border-radius); background: linear-gradient(135deg, #007bff, #6c757d); color: white;">
+                <div class="d-flex justify-content-center align-items-center py-2" style="background: var(--primary-color);">
+                    <h4 class="font-weight-bold text-center m-0">Members</h4>
+                </div>
+                <div class="flex-grow-1 my-2 px-4" style="overflow-y: auto;">
+                    <ul id="principalList" class="list-group bg-light" style="overflow-y: auto; max-height: calc(100vh - 100px);">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        @*  <div class="d-flex flex-column mx-1" style="background-color: #f8f9fa; overflow-y: auto;" id="membersColumn">
+            <div class="card shadow-lg h-100" style="background: linear-gradient(135deg, #007bff, #6c757d); color: white;">
+                <div class="card-header shadow-sm rounded-bottom">
+                    <h4 class="font-weight-bold text-center">Members</h4>
+                </div>
+                <div class="card-body px-2">
+                    <ul id="principalList" class="list-group bg-light" style="overflow-y: auto; max-height: calc(100vh - 100px);">
+                    </ul>
+                </div>
+            </div>
+        </div> *@
+    </section>
+
+
+
+
+</body>
+
+</html>
+
+
+<script src="~/microsoft-signalr@8.0.0/signalr.min.js"></script>
+
+<script>
+    const appConfig = {
+        authUser: "@UserName"
+    };
+</script>
+<script src="js/messageBoard.js"></script>
