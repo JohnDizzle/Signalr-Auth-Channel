@@ -27,11 +27,11 @@
 
 🛞 ## Architecture 🛞
 
-📃 **Frontend:** Blazor (.NET 9), Signalr Client
-📃 **Backend:** ASP.NET Core, SignalR Management & Hub, Azure SDKs
-📃 **Authentication:** Azure AD (MSAL, single-tenant)
-📃 **Storage:** Azure Table Storage (sessions/messages), Azure Blob Storage (file uploads) - ** In Memory Storage is available for debugging **
-📃 **Real-Time:** Azure SignalR Service
+📃 - **Frontend:** Blazor (.NET 9), Signalr Client
+📃 = **Backend:** ASP.NET Core, SignalR Management & Hub, Azure SDKs
+📃 - **Authentication:** Azure AD (MSAL, single-tenant)
+📃 - **Storage:** Azure Table Storage (sessions/messages), Azure Blob Storage (file uploads) - ** In Memory Storage is available for debugging **
+📃 - **Real-Time:** Azure SignalR Service
 
 🔡 ## Getting Started
 
