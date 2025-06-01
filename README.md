@@ -1,39 +1,39 @@
-# Authchannel Message Board
+# Authchannel Message Board 🗣️
 
 **Auth Channel** is a modern, open-source Blazor chat/message board application designed for secure, enterprise-ready collaboration. It leverages Azure services for authentication, real-time messaging, and file sharing.
 
-## Features
+✨ ## Features
 
-- **Single-Tenant Authorization**  
+ **Single-Tenant Authorization**  
   Uses [MSAL](https://github.com/AzureAD/microsoft-authentication-library-for-dotnet) for secure, single-tenant authentication with Azure Active Directory.
 
-- **Real-Time Messaging**  
+✔️ **Real-Time Messaging**  
   Built on [Azure SignalR Service](https://docs.microsoft.com/en-us/azure/azure-signalr/signalr-overview) for scalable, low-latency chat.
 
-- **Room Ownership**  
+✔️ **Room Ownership**  
   Users can create chat rooms and become their owners. Room owners manage the existance of there rooms.
 
-- **Private Messaging**  
+✔️ **Private Messaging**  
   All messages are authorized per user/session. Private chats are supported with strict access control.
 
-- **File Sharing with Expiry**  
+✔️ **File Sharing with Expiry**  
   Upload files to Azure Storage. Shared files are accessible via secure links that expire after 1 hour.
 
-- **Dependency Injection & Azure Common**  
+✔️ **Dependency Injection & Azure Common**  
   Built with .NET 9 and C# 13, using best practices for dependency injection and Azure SDKs.
 
-- **Session Management**  
+✔️ **Session Management**  
   User sessions and message history are stored in Azure Table Storage for reliability and scalability.
 
-## Architecture
+🛞 ## Architecture 🛞
 
-- **Frontend:** Blazor (.NET 9), Signalr Client
-- **Backend:** ASP.NET Core, SignalR Management & Hub, Azure SDKs
-- **Authentication:** Azure AD (MSAL, single-tenant)
-- **Storage:** Azure Table Storage (sessions/messages), Azure Blob Storage (file uploads) - ** In Memory Storage is available for debugging **
-- **Real-Time:** Azure SignalR Service
+📃 **Frontend:** Blazor (.NET 9), Signalr Client
+📃 **Backend:** ASP.NET Core, SignalR Management & Hub, Azure SDKs
+📃 **Authentication:** Azure AD (MSAL, single-tenant)
+📃 **Storage:** Azure Table Storage (sessions/messages), Azure Blob Storage (file uploads) - ** In Memory Storage is available for debugging **
+📃 **Real-Time:** Azure SignalR Service
 
-## Getting Started
+🔡 ## Getting Started
 
 ### Prerequisites
 
