@@ -139,6 +139,8 @@ Contributions are welcome! Please open issues or submit pull requests.
 
 [MIT License](/LICENSE.txt)
 
+## Message Board
+[Message Board](/Messageboard.png)
 ---
 
 **Note:** This project is intended for single-tenant (enterprise) use. For multi-tenant scenarios, additional configuration is required.
