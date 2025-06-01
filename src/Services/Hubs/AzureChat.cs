@@ -174,14 +174,17 @@ namespace AuthChannel.Services.Hubs
         }
         public async Task<string> GetOrCreateSession(string receiver)
         {
-            // validate existing and andOR create new session if not exists.
+            // Creating a Session call to dataSessionStore will either create a new sessionId (room) - OR = will find an existing Room or Private Chat. 
+            // Validation is in that class azureDataTableSessioinStorage. 
 
             var sender = Context.UserIdentifier;
             var session = await SafeExecutor.ExecuteAsync(async () => await _azureDataTableSessionStorage.GetOrCreateSessionAsync(sender!, receiver), _logger, $"Creating a Session"); 
-            var isSession = await SafeExecutor.ExecuteAsync(async ()=> await _azureDataTableSessionStorage.GetSessionBySessionId(session!.SessionId), _logger, $"Get Session By SessionId");    
 
-            var isListedCommander = _commander.ActiveGroups.ToDictionary().Where(w => w.Key.Item2 == receiver).Where(x => x.Value == session?.SessionId).ToDictionary();
-
+            /* debug validation
+                var isSession = await SafeExecutor.ExecuteAsync(async ()=> await _azureDataTableSessionStorage.GetSessionBySessionId(session!.SessionId), _logger, $"Get Session By SessionId");    
+                var isListedCommander = _commander.ActiveGroups.ToDictionary().Where(w => w.Key.Item2 == receiver).Where(x => x.Value == session?.SessionId).ToDictionary();
+            */
+            
             if (await _signalRService.MessageHubContext!.ClientManager.UserExistsAsync(receiver))
             {
                 var userSessions = await SafeExecutor.ExecuteAsync(async () => await _azureDataTableSessionStorage.GetLatestSessionsAsync(sender!), _logger, $"Get Sessions");
