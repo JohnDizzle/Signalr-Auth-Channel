@@ -119,8 +119,7 @@
 	    "SignalR": {
 	      "Enabled": "true"
 	    }
-	  }
-	}```
+	  }}```
   
 	
 ### Usage
