@@ -255,7 +255,7 @@ namespace AuthChannel.Services.Hubs
         public async Task<Task> DeleteUserSession(string userName, string partnerName)
         {
             var sender = Context.UserIdentifier;
-            var items = await SafeExecutor.ExecuteAsync(async () => await _azureDataTableSessionStorage.GetLatestSessionsAsync(userName), _logger, "LoadMessages"); 
+            var items = await SafeExecutor.ExecuteAsync(async () => await _azureDataTableSessionStorage.GetLatestSessionsAsync(userName), _logger, "Get Sessions"); 
             var Removed = (from kv in items where kv.Key == partnerName select kv);
             // delete session from table 
             await _azureDataTableSessionStorage.DeleteUserSession(userName, partnerName);
@@ -264,7 +264,7 @@ namespace AuthChannel.Services.Hubs
             // remove from siganlr groups 
             await RemoveFromGroup(partnerName);
             //  get latest session information to the user.
-            var userSessions = await SafeExecutor.ExecuteAsync(async () => await _azureDataTableSessionStorage.GetLatestSessionsAsync(userName), _logger, "LoadMessages"); 
+            var userSessions = await SafeExecutor.ExecuteAsync(async () => await _azureDataTableSessionStorage.GetLatestSessionsAsync(userName), _logger, "Post Delete -> Gather Remaining Sessions."); 
             //  Send to latest session list to user (caller).
             await Clients!.Caller.SendAsync("updateSessions", userSessions);
 
